@@ -1,0 +1,25 @@
+name: Morning Slack Brief
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # 6:00 AM UTC daily — adjust for your timezone
+  workflow_dispatch:        # lets you trigger it manually too, for testing
+
+jobs:
+  send-brief:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install slack_sdk requests google-genai
+
+      - name: Run brief script
+        env:
+          SLACK_API_KEY: ${{ secrets.SLACK_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python main.py
