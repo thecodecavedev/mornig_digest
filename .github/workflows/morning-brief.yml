@@ -16,7 +16,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install slack_sdk requests google-genai
+        run: pip install slack_sdk requests google-genai python-dotenv
 
       - name: Run brief script
         env:
